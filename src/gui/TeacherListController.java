@@ -1,9 +1,13 @@
 package gui;
 
 import java.net.URL;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,8 +16,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entities.Teacher;
+import model.services.TeacherService;
 
 public class TeacherListController implements Initializable {
+	
+	private TeacherService service;
 	
 	@FXML
 	private TableView<Teacher> tableViewTeacher;
@@ -22,43 +29,58 @@ public class TeacherListController implements Initializable {
 	private TableColumn<Teacher, Integer> tableColumnId;
 	
 	@FXML
-	private TableColumn<Teacher, Integer> tableColumnName;
+	private TableColumn<Teacher, String> tableColumnName;
 	
 	@FXML
-	private TableColumn<Teacher, Integer> tableColumnAdmissionDate;
+	private TableColumn<Teacher, Date> tableColumnAdmissionDate;
 	
 	@FXML
-	private TableColumn<Teacher, Integer> tableColumnCpf;
+	private TableColumn<Teacher, String> tableColumnCpf;
 	
 	@FXML
-	private TableColumn<Teacher, Integer> tableColumnPhone;
+	private TableColumn<Teacher, String> tableColumnPhone;
 	
 	@FXML
-	private TableColumn<Teacher, Integer> tableColumnPeriod;
+	private TableColumn<Teacher, Double> tableColumnSalary;
 
 	@FXML
 	private Button btNew;
 	
+	private ObservableList<Teacher> obsList;
+	
 	@FXML
-	private void onBtNewAction() {
+	public void onBtNewAction() {
 		System.out.println("onBtNewAction");
 	}
+	
+	public void setTeacherService(TeacherService service) {
+		this.service = service;
+	}
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
 				
-	}
+	}	
 	
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("name"));
-		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("admissionDate"));
-		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("phone"));
-		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("period"));
-		
+		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		tableColumnAdmissionDate.setCellValueFactory(new PropertyValueFactory<>("admissionDate"));
+		tableColumnCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+		tableColumnPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+		tableColumnSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));	
+
 		Stage stage = (Stage)Main.getMainScene().getWindow();
 		tableViewTeacher.prefHeightProperty().bind(stage.heightProperty());
-	}
+	}	
 	
+	public void updateTableView() {
+		if(service == null) 
+			throw new IllegalStateException("Service was null!");
+		
+		List<Teacher> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewTeacher.setItems(obsList);
+	}
 }

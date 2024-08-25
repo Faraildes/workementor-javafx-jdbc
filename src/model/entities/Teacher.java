@@ -1,6 +1,8 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 
 public class Teacher implements Serializable {
 
@@ -8,13 +10,21 @@ public class Teacher implements Serializable {
 
 	private Integer id;
 	private String name;
+	private Date admissionDate;
+	private String cpf;
+	private String phone;
+	private Double salary;
 	
 	public Teacher() {
 	}
 
-	public Teacher(Integer id, String name) {
+	public Teacher(Integer id, String name, Date admissionDate, String cpf, String phone, Double salary) {		
 		this.id = id;
 		this.name = name;
+		this.admissionDate = admissionDate;
+		this.cpf = cpf;
+		this.phone = phone;
+		this.salary = salary;
 	}
 
 	public Integer getId() {
@@ -33,12 +43,45 @@ public class Teacher implements Serializable {
 		this.name = name;
 	}
 
+	public Date getAdmissionDate() {
+		return admissionDate;
+	}
+
+	public void setAdmissionDate(Date admissionDate) {
+		this.admissionDate = admissionDate;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -50,16 +93,12 @@ public class Teacher implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Teacher other = (Teacher) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+		return Objects.equals(id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "Teacher [id=" + id + ", name=" + name + "]";
-	}
+		return "Teacher [id=" + id + ", name=" + name + ", admissionDate=" + admissionDate + ", cpf=" + cpf + ", phone="
+				+ phone + ", salary=" + salary + "]";
+	}	
 }

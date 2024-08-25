@@ -26,12 +26,12 @@
       </ToolBar>
       <TableView fx:id="tableViewTeacher" prefHeight="200.0" prefWidth="200.0">
         <columns>
-            <TableColumn fx:id="tableColumnId" onEditStart="#onBtNewAction" prefWidth="75.0" text="Id" />
+            <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
           <TableColumn fx:id="tableColumnName" prefWidth="75.0" text="Name" />
           <TableColumn fx:id="tableColumnAdmissionDate" prefWidth="75.0" text="AdmissionDate" />
             <TableColumn fx:id="tableColumnCpf" prefWidth="75.0" text="CPF" />
             <TableColumn fx:id="tableColumnPhone" prefWidth="75.0" text="Phone" />
-            <TableColumn fx:id="tableColumnPeriod" prefWidth="75.0" text="Period" />
+            <TableColumn fx:id="tableColumnSalary" prefWidth="75.0" text="Salary" />
         </columns>
       </TableView>
    </children>
